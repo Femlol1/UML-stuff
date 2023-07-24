@@ -1,0 +1,123 @@
+@startuml
+package Leisure_centre_booking_system  {
+        class Users {
+        -Username: String
+        -name : String
+        -Password : String
+        -PhoneNumber : String
+        -bookingLog : bookFactility[]
+        -trainers : Trainer[]
+        -login
+        +RegisterUser()
+        +RemoveUser()
+        +SearchUsers()
+        +EditUsers()        
+        }
+        class SystemAdmin  {
+        -Username : String
+        -Password : String
+        -Users : Users[]
+        +DisplayLogs()
+        +ManageSchedule()
+        }
+        class Trainer{
+        -Username:String
+        -Name:String
+        -Password:String
+        -PhoneNumber:String
+        -login
+        +AddTrainer()
+        +RemoveTrainer()
+        +SearchTrainer()
+        +EditTrainer()
+        +AddSchedule()
+        +ViewSchedule()
+        }
+        class Payment  {
+        -Amount : int 
+        -Balance: Int 
+        -Card number: Int 
+        -Card Expiry date : int
+        -CVV:int
+        +Transfer_details:()
+        }
+        class Bank {
+        -Amount : int 
+        -Balance: Int 
+        -Card number: Int 
+        -Card Expiry date : int
+        +Authenticates_payment:()
+        }
+        class BookingSystem {
+        -ID : Integer
+        -Facilities : Facility[ ]
+        -Date : dateTime
+        -Payee : Member
+        -User : Member[ ]
+        -bookSystem : BookingSystem
+        -COVID: boolean
+        +addBooking(int id, dateTime t)
+        +getDate()
+        +getFacility(id)
+        +checkDateAvailability(id)
+        +makeBooking(id,time,Payee)
+        +getCovid()
+        -private logTransaction()
+        }
+        class Facility {
+        -ID : Integer
+        -timeTable : dateTime[ ]
+        -images : Image[ ]
+        -Description : String
+        -Maintenance:boolean
+        -MaintenanceDate: Date
+        +AddFacility()
+        +RemoveFacility()
+        +EditFacility()
+        +SearchFacility()        
+        }
+        class SystemAdmin{
+        -Extends : System admin
+        -Facilities:Facility[]
+        +UpdateStaff()
+        +AddBooking()
+        +RemoveBooking()
+        +UpdateBooking()
+        +UpdateSearch()
+
+
+}
+        class Admin{
+        -Extends : System admin
+        -Facilities:Facility[]
+        +UpdateStaff()    
+        +AddBooking()
+        +RemoveBooking()
+        +UpdateBooking()
+        +UpdateSearch()
+
+
+
+}
+        class CovidCheck {
+        -Link:Hyperlink
+        -COVID: boolean
+        +Hyperlink()
+        +checkCovid()
+
+
+
+
+}
+
+Users "*" o-- "1"BookingSystem
+
+Users "1" --o "*" Trainer 
+BookingSystem "1" -- "*" Facility
+Payment "1"-- "1" Bank 
+Users"*"--"1" SystemAdmin
+BookingSystem "1"--* "*" CovidCheck
+SystemAdmin --|> Admin
+
+}
+@enduml
